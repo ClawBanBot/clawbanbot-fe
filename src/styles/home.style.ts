@@ -9,6 +9,7 @@ const Title = styled.h1`
 
 const TagLine = styled.h2`
   font-size: 2rem;
+  font-weight: var(--font-weight-normal);
   font-family: var(--font-family-main);
   color: var(--color-offwhite);
   margin-bottom: 4rem;

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
-import { Color } from './color.style'
 import { Font } from './font.style'
 import { focusAccessible } from './utils.style';
 
-const TwitchButton = styled.button`
+const TwitchButton = styled.a`
   background-color: var(--color-twitch);
   border-width: 0;
   border-radius: 0.25rem;
-  display: flex;
+  display: inline-flex;
+  text-decoration: none;
   font-size: 1.4rem;
   font-weight: ${Font.weight.bold};
   font-family: ${Font.family.main};
