@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export type GetAuthLinkResponse = string | null;
+interface AuthenticateWithTwitchResponse {
+  twitchId: string,
+  twitchDisplayName: string
+}
 
 //https://id.twitch.tv/oauth2/authorize?redirect_uri=#{CLIENT_URL}/login&response_type=code&client_id=$%7BTWITCH_CLIENT_ID%7D&scope=channel:moderate+chat:read+chat:edit+moderation:read
 
@@ -30,25 +34,18 @@ export default class Api {
   }
 
 
-  // static authenticateTwitchUser = async (
-  //   id: string,
-  // ): Promise<GameByIdResponse | null> => {
-  //   const accessTokenData = await accessTokenUtil.get();
-  //   if (!accessTokenData) return null;
+  static async authenticateWithTwitch(code: string): Promise<AuthenticateWithTwitchResponse | null> {
+    try {
+        const response = await axios.post(
+          `${this.apiUrl()}authenticate`, {code, redirect_uri: this.clientUrl()}
+        )
+          
+      return response.data;  
+    } catch (error) {
+      console.log(error);
+    }
 
-  //   const response = await axios.get(
-  //     `https://api.twitch.tv/helix/games?id=${id}`,
-  //     {
-  //       headers: {
-  //         accept: "application/vnd.twitchtv.v5+json",
-  //         "client-id": process.env.CLIENT_ID,
-  //         authorization: `Bearer ${accessTokenData.accessToken}`,
-  //       },
-  //     },
-  //   );
-
-  //   return response.data.data[0];
-  // };
-
+    return null;
+  }
 
 }

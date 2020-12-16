@@ -24,4 +24,16 @@ const PantherContainer = styled.div`
   margin-bottom: 1rem;
 `
 
-export { Title, TagLine, PantherContainer }
+const Welcome = styled.h3`
+  font-size: 2rem;
+  font-weight: var(--font-weight-normal);
+  font-family: var(--font-family-main);
+  color: var(--color-offwhite);
+  margin-bottom: 4rem;
+`
+
+const TwitchUserName = styled.span`
+  font-weight: var(--font-weight-bold);
+`
+
+export { Title, TagLine, PantherContainer, Welcome, TwitchUserName }

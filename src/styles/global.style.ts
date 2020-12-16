@@ -7,6 +7,8 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --font-family-main: ${Font.family.main};
     --font-family-heading: ${Font.family.heading};
+    --font-weight-bold: ${Font.weight.bold};
+    --font-weight-normal: ${Font.weight.normal};
 
     --color-background: ${Color.background};
     --color-foreground: ${Color.foreground};
@@ -41,6 +43,7 @@ const Container = styled.section`
   margin-right: auto;
   max-width: ${Layout.maxWidth.main}px;
   padding: 1rem 2rem;
+  margin-bottom: 4rem;
 `
 
 
