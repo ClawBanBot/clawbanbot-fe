@@ -1,6 +1,7 @@
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { GlobalStyle, Container } from "./styles/global.style";
+import { Color } from "./styles/color.style";
 import {
   Title,
   LogoContainer,
@@ -24,10 +25,14 @@ import Loading from "./utils/Loading";
 
 function App(): JSX.Element {
   const [twitchAuthUrl, setTwitchAuthUrl] = useState<GetAuthLinkResponse>(null);
-  const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(false);
+  const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  // const [backgroundColor, setBackgroundColor] = useState(Color.palette.redDark);
+  const [backgroundColor, setBackgroundColor] = useState(Color.background);
 
-  const [twitchDisplayName, setTwitchDisplayName] = useState("");
+  const [twitchDisplayName, setTwitchDisplayName] = useState(
+    "BaldBeardedBuilder"
+  );
 
   useEffect(() => {
     Api.getTwitchAuthUrl().then((url) => setTwitchAuthUrl(url));
@@ -42,6 +47,7 @@ function App(): JSX.Element {
           setTwitchDisplayName(response.twitchDisplayName);
           window.history.pushState({}, "", "/");
           setIsLoading(false);
+          setBackgroundColor(Color.background);
         }
       });
     }
@@ -49,54 +55,56 @@ function App(): JSX.Element {
 
   return (
     <>
-      <GlobalStyle />
-      <Container>
-        <AuthContainer>
-          <LogoContainer>
-            <PantherContainer
-              animate={{
-                y: [0, 8, 0],
-              }}
-              transition={{
-                duration: 4,
-                ease: "easeInOut",
-                times: [0, 0.5, 1],
-                repeat: Infinity,
-              }}
-            >
-              <PewPewPanther />
-            </PantherContainer>
-            <BannerImage />
-            <BannerTextPath displayText="Claw Ban Bot" />
-          </LogoContainer>
-          <Title>Ultimate online safety for streamers</Title>
+      <GlobalStyle backgroundColor={backgroundColor} />
+      {!authenticatedWithTwitch && (
+        <Container>
+          <AuthContainer>
+            <LogoContainer>
+              <PantherContainer
+                animate={{
+                  y: [0, 8, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1],
+                  repeat: Infinity,
+                }}
+              >
+                <PewPewPanther />
+              </PantherContainer>
+              <BannerImage />
+              <BannerTextPath displayText="Claw Ban Bot" />
+            </LogoContainer>
+            <Title>Ultimate online safety for streamers</Title>
 
-          <BenefitsList>
-            <BenefitsListItem>
-              Auto-ban users in your Twitch channel who are banned in our
-              network
-            </BenefitsListItem>
-            <BenefitsListItem>
-              Works silently in the background and will not invade your chat
-            </BenefitsListItem>
-          </BenefitsList>
+            <BenefitsList>
+              <BenefitsListItem>
+                Auto-ban users in your Twitch channel who are banned in our
+                network
+              </BenefitsListItem>
+              <BenefitsListItem>
+                Works silently in the background and will not invade your chat
+              </BenefitsListItem>
+            </BenefitsList>
 
-          {isLoading && <Loading />}
+            {isLoading && <Loading />}
 
-          {authenticatedWithTwitch && (
-            <LoggedInPage twitchDisplayName={twitchDisplayName} />
-          )}
+            {!isLoading && twitchAuthUrl && (
+              <TwitchButton href={twitchAuthUrl}>
+                <ButtonIconContainer>
+                  <TwitchSvg />
+                </ButtonIconContainer>
+                <ButtonTextContainer>Log in with Twitch</ButtonTextContainer>
+              </TwitchButton>
+            )}
+          </AuthContainer>
+        </Container>
+      )}
 
-          {!isLoading && !authenticatedWithTwitch && twitchAuthUrl && (
-            <TwitchButton href={twitchAuthUrl}>
-              <ButtonIconContainer>
-                <TwitchSvg />
-              </ButtonIconContainer>
-              <ButtonTextContainer>Log in with Twitch</ButtonTextContainer>
-            </TwitchButton>
-          )}
-        </AuthContainer>
-      </Container>
+      {authenticatedWithTwitch && (
+        <LoggedInPage twitchDisplayName={twitchDisplayName} />
+      )}
     </>
   );
 }

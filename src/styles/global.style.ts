@@ -3,7 +3,11 @@ import { Font } from "./font.style";
 import { Layout } from "./layout.style";
 import { Color } from "./color.style";
 
-const GlobalStyle = createGlobalStyle`
+interface GlobalStyleProps {
+  backgroundColor: string;
+}
+
+const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   :root {
     --font-family-main: ${Font.family.main};
     --font-family-heading: ${Font.family.heading};
@@ -30,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-size: ${Font.baseSize}px;
     font-family: var(--font-family-main);
-    background-color: ${Color.background};
+    background-color: ${(props) => props.backgroundColor || Color.background};
     color: ${Color.foreground};
   }
 

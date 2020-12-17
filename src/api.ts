@@ -1,6 +1,13 @@
 import axios from "axios";
 
 export type GetAuthLinkResponse = string | null;
+
+type TwitchBan = {
+  twitch_id: string;
+  twitch_name: string;
+};
+
+export type TwitchBanListResponse = TwitchBan[];
 interface AuthenticateWithTwitchResponse {
   twitchId: string;
   twitchDisplayName: string;
@@ -43,5 +50,17 @@ export default class Api {
     }
 
     return null;
+  }
+
+  static async getTwitchBanList(): Promise<TwitchBanListResponse | []> {
+    try {
+      const response = await axios.get(`${this.apiUrl()}ban_list`);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+
+    return [];
   }
 }

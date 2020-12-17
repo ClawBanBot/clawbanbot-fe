@@ -1,6 +1,6 @@
 const Color = {
   foreground: "#f8f8f2",
-  background: "#f11012",
+  background: "#0f111a",
   palette: {
     red: "#f11012",
     redDark: "#d90d10",
