@@ -2,7 +2,6 @@ interface BannerTextPathProps {
   displayText: string;
 }
 
-// eslint-disable-next-line prettier/prettier
 export default function BannerTextPath(
   props: BannerTextPathProps
 ): JSX.Element {
