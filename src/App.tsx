@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { GlobalStyle, Container } from "./styles/global.style";
@@ -73,6 +74,9 @@ function App(): JSX.Element {
             <BenefitsListItem>
               Auto-ban users in your Twitch channel who are banned in our
               network
+            </BenefitsListItem>
+            <BenefitsListItem>
+              Works silently in the background and will not invade your chat
             </BenefitsListItem>
           </BenefitsList>
 
