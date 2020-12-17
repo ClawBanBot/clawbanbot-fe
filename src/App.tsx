@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import queryString from "query-string";
 import React, { useEffect, useState } from "react";
 import { GlobalStyle, Container } from "./styles/global.style";
