@@ -31,18 +31,6 @@ const LogoContainer = styled.div`
   height: 260px;
 `;
 
-const Welcome = styled.h3`
-  font-size: 2rem;
-  font-weight: var(--font-weight-normal);
-  font-family: var(--font-family-main);
-  color: var(--color-offwhite);
-  margin-bottom: 4rem;
-`;
-
-const TwitchUserName = styled.span`
-  font-weight: var(--font-weight-bold);
-`;
-
 const AuthContainer = styled.div`
   max-width: ${Layout.maxWidth.small}px;
   display: flex;
@@ -89,8 +77,6 @@ export {
   Title,
   TagLine,
   LogoContainer,
-  Welcome,
-  TwitchUserName,
   AuthContainer,
   PantherContainer,
   BenefitsList,
