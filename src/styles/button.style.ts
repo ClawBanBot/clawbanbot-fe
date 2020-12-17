@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { Font } from './font.style'
-import { focusAccessible } from './utils.style';
+import styled from "styled-components";
+import { Font } from "./font.style";
+import { focusAccessible } from "./utils.style";
 
 const TwitchButton = styled.a`
   background-color: var(--color-twitch);
@@ -41,7 +41,7 @@ const TwitchButton = styled.a`
       color: var(--color-offwhite);
     }
   }
-`
+`;
 
 const ButtonIconContainer = styled.span`
   display: flex;
@@ -55,12 +55,10 @@ const ButtonIconContainer = styled.span`
     height: 100%;
     width: 100%;
   }
-`
+`;
 
 const ButtonTextContainer = styled.span`
   display: flex;
-`
+`;
 
-export { TwitchButton, ButtonIconContainer, ButtonTextContainer } 
-
-
+export { TwitchButton, ButtonIconContainer, ButtonTextContainer };

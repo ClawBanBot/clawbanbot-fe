@@ -1,6 +1,6 @@
 const Color = {
   foreground: "#f8f8f2",
-  background: "#0f111a",
+  background: "#f11012",
   palette: {
     red: "#f11012",
     redDark: "#d90d10",
@@ -10,10 +10,8 @@ const Color = {
     offwhite: "#f8f8f2",
     yellow: "#ffb626",
     twitch: "#9147ff",
-    twitchDark: "#772CE8"
+    twitchDark: "#772CE8",
   },
-}
+};
 
-export { Color }
-
-
+export { Color };
