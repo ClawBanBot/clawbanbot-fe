@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 const Title = styled.h1`
   font-size: 2rem;
+  line-height: 2.6rem;
   font-family: var(--font-family-main);
   color: var(--color-offwhite);
   margin-bottom: 2rem;
@@ -74,12 +75,13 @@ const BenefitsListItem = styled.li`
   font-family: var(--font-family-main);
   font-weight: var(--font-weight-normal);
   font-size: 1.2rem;
+  line-height: 1.8rem;
   margin-bottom: 1rem;
 
   &:before {
     content: "✅";
     display: inline-block;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
   }
 `;
 
