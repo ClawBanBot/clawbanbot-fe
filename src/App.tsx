@@ -25,33 +25,32 @@ import Loading from "./utils/Loading";
 
 function App(): JSX.Element {
   const [twitchAuthUrl, setTwitchAuthUrl] = useState<GetAuthLinkResponse>(null);
-  const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(true);
+  const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   // const [backgroundColor, setBackgroundColor] = useState(Color.palette.redDark);
-  const [backgroundColor, setBackgroundColor] = useState(Color.background);
+  const backgroundColor = Color.background;
 
-  const [twitchDisplayName, setTwitchDisplayName] = useState(
-    "BaldBeardedBuilder"
-  );
+  const [twitchDisplayName, setTwitchDisplayName] = useState<string>("");
 
   useEffect(() => {
     Api.getTwitchAuthUrl().then((url) => setTwitchAuthUrl(url));
 
     const { code }: any = queryString.parse(window.location.search) || "";
-
     if (code) {
       setIsLoading(true);
-      Api.authenticateWithTwitch(code).then((response) => {
-        if (response !== null) {
-          setAuthenticatedWithTwitch(true);
-          setTwitchDisplayName(response.twitchDisplayName);
-          window.history.pushState({}, "", "/");
+      window.history.replaceState({}, "", "/");
+      Api.authenticateWithTwitch(code)
+        .then((response) => {
+          if (response !== null) {
+            setAuthenticatedWithTwitch(true);
+            setTwitchDisplayName(response.twitchDisplayName);
+          }
+        })
+        .finally(() => {
           setIsLoading(false);
-          setBackgroundColor(Color.background);
-        }
-      });
+        });
     }
-  }, [twitchAuthUrl]);
+  }, []);
 
   return (
     <>
