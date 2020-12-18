@@ -22,11 +22,13 @@ import BannerImage from "./svg/bannerImage";
 import BannerTextPath from "./svg/bannerTextPath";
 import LoggedInPage from "./pages/LoggedIn";
 import Loading from "./utils/Loading";
+import { AxiosError } from "axios";
 
 function App(): JSX.Element {
   const [twitchAuthUrl, setTwitchAuthUrl] = useState<GetAuthLinkResponse>(null);
   const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [missingWhitelist, setMissingWhitelist] = useState(false);
   // const [backgroundColor, setBackgroundColor] = useState(Color.palette.redDark);
   const backgroundColor = Color.background;
 
@@ -46,6 +48,11 @@ function App(): JSX.Element {
             setTwitchDisplayName(response.twitchDisplayName);
           }
         })
+        .catch((response: AxiosError) => {
+          if (response.response?.status === 403) {
+            setMissingWhitelist(true);
+          }
+        })
         .finally(() => {
           setIsLoading(false);
         });
@@ -55,7 +62,7 @@ function App(): JSX.Element {
   return (
     <>
       <GlobalStyle backgroundColor={backgroundColor} />
-      {!authenticatedWithTwitch && (
+      {!authenticatedWithTwitch && !missingWhitelist && (
         <Container>
           <AuthContainer>
             <LogoContainer>
@@ -100,6 +107,8 @@ function App(): JSX.Element {
           </AuthContainer>
         </Container>
       )}
+
+      {missingWhitelist && <div>You're not in the whitelist!</div>}
 
       {authenticatedWithTwitch && (
         <LoggedInPage twitchDisplayName={twitchDisplayName} />
