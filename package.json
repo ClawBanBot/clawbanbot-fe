@@ -13,6 +13,7 @@
     "@types/styled-components": "^5.1.5",
     "axios": "^0.21.0",
     "framer-motion": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
     "prettier": "^2.2.1",
     "query-string": "^6.13.7",
     "react": "^17.0.1",
@@ -41,5 +42,8 @@
       "last 1 safari version"
     ]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.0"
+  }
 }

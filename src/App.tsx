@@ -24,9 +24,13 @@ import LoggedInPage from "./pages/LoggedIn";
 import Loading from "./utils/Loading";
 import { AxiosError } from "axios";
 
+import jwt from "jsonwebtoken";
+
 function App(): JSX.Element {
   const [twitchAuthUrl, setTwitchAuthUrl] = useState<GetAuthLinkResponse>(null);
   const [authenticatedWithTwitch, setAuthenticatedWithTwitch] = useState(false);
+  const [authenticationToken, setAuthenticationToken] = useState<string>();
+  const [role, setRole] = useState<"admin" | "user">();
   const [isLoading, setIsLoading] = useState(false);
   const [missingWhitelist, setMissingWhitelist] = useState(false);
   // const [backgroundColor, setBackgroundColor] = useState(Color.palette.redDark);
@@ -45,7 +49,15 @@ function App(): JSX.Element {
         .then((response) => {
           if (response !== null) {
             setAuthenticatedWithTwitch(true);
-            setTwitchDisplayName(response.twitchDisplayName);
+            setAuthenticationToken(response);
+            sessionStorage.setItem("token", response);
+            const token_data: any = jwt.decode(response);
+            setTwitchDisplayName(token_data.twitchDisplayName);
+            setRole(token_data.role);
+
+            // Axios.get("http://localhost:5000/ban_list", {
+            //   headers: { authorization: response },
+            // }).then(console.log);
           }
         })
         .catch((response: AxiosError) => {
@@ -58,6 +70,7 @@ function App(): JSX.Element {
         });
     }
   }, []);
+  console.log(authenticationToken);
 
   return (
     <>
@@ -111,7 +124,9 @@ function App(): JSX.Element {
       {missingWhitelist && <div>You're not in the whitelist!</div>}
 
       {authenticatedWithTwitch && (
-        <LoggedInPage twitchDisplayName={twitchDisplayName} />
+        <>
+          <LoggedInPage twitchDisplayName={twitchDisplayName} /> as {role}
+        </>
       )}
     </>
   );

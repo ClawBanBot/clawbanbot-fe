@@ -8,9 +8,10 @@ type TwitchBan = {
 };
 
 export type TwitchBanListResponse = TwitchBan[];
-interface AuthenticateWithTwitchResponse {
-  twitchId: string;
+export interface AuthenticateWithTwitchResponse {
   twitchDisplayName: string;
+  role: "admin" | "user";
+  sub: string;
 }
 export default class Api {
   static apiUrl(): string {
@@ -35,9 +36,7 @@ export default class Api {
     return null;
   }
 
-  static async authenticateWithTwitch(
-    code: string
-  ): Promise<AuthenticateWithTwitchResponse | null> {
+  static async authenticateWithTwitch(code: string): Promise<string | null> {
     try {
       const response = await axios.post(`${this.apiUrl()}authenticate`, {
         code,
