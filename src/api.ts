@@ -36,7 +36,7 @@ export default class Api {
     return null;
   }
 
-  static async authenticateWithTwitch(code: string): Promise<string | null> {
+  static async authenticateWithTwitch(code: string): Promise<string> {
     try {
       const response = await axios.post(`${this.apiUrl()}authenticate`, {
         code,
@@ -47,8 +47,6 @@ export default class Api {
     } catch (error) {
       throw error;
     }
-
-    return null;
   }
 
   static async getTwitchBanList(): Promise<TwitchBanListResponse | []> {
