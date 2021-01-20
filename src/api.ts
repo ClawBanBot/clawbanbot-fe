@@ -13,8 +13,9 @@ export interface AuthenticateWithTwitchResponse {
   role: "admin" | "user";
   sub: string;
 }
+
 export default class Api {
-  static jwt: string = "";
+  static jwt: string = sessionStorage.getItem("token") || "";
 
   static apiUrl(): string {
     return process.env.REACT_APP_API_URL || "notConnected";
@@ -46,6 +47,8 @@ export default class Api {
       });
 
       this.jwt = response.data;
+      sessionStorage.setItem("token", this.jwt);
+
       return response.data;
     } catch (error) {
       throw error;
@@ -64,5 +67,10 @@ export default class Api {
     }
 
     return [];
+  }
+
+  static disconnectBot() {
+    sessionStorage.removeItem("token");
+    this.jwt = "";
   }
 }

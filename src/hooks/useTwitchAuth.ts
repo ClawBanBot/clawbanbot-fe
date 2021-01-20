@@ -16,7 +16,11 @@ export interface TwitchAuthResponse {
 }
 
 export default function useTwitchAuth(): TwitchAuthResponse {
-  const [userInfo, setUserInfo] = useState<any>(); // This is actually a User, but we can't cast it 😢
+  const [userInfo, setUserInfo] = useState<any>(
+    sessionStorage.getItem("token")
+      ? jwt.decode(sessionStorage.getItem("token") || "")
+      : ""
+  ); // This is actually a User, but we can't cast it 😢
   const [missingWhitelist, setMissingWhitelist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 

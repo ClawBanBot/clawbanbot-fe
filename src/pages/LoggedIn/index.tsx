@@ -19,11 +19,18 @@ export default function LoggedInPage(props: LoggedInPageProps): JSX.Element {
     });
   }, [setBanList]);
 
+  const disconnectBot = () => {
+    Api.disconnectBot();
+  };
+
   return (
     <>
       <Welcome>
         <Emoji label="Waving hand" symbol="👋" />
         Pew pew <TwitchUserName>@{twitchDisplayName}</TwitchUserName>!
+        <button onClick={disconnectBot} type="button">
+          Disconnect from Claw Ban Bot
+        </button>
       </Welcome>
 
       <div>
