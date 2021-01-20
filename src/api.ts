@@ -69,8 +69,23 @@ export default class Api {
     return [];
   }
 
-  static disconnectBot() {
-    sessionStorage.removeItem("token");
-    this.jwt = "";
+  static async disconnectBot(): Promise<boolean> {
+    try {
+      await axios.get(`${this.apiUrl()}logout`, {
+        headers: { authorization: this.jwt },
+      });
+
+      sessionStorage.removeItem("token");
+      this.jwt = "";
+
+      //temporary until we sort out our lives
+      window.location.reload();
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+    return false;
   }
 }
