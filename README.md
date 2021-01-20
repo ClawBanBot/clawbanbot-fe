@@ -1,7 +1,5 @@
 # Welcome to the Claw Ban Bot
 
-
-
 ## Getting started with development
 
 ## Claw Ban Bot API
@@ -10,7 +8,7 @@ This respository is designed to work in parallel with the [Claw Ban Bot API](htt
 
 ## Pre requisites
 
-```
+```text
 yarn OR npm
 NodeJS
 ```
@@ -23,11 +21,10 @@ An example `.env` file has been included for you. Ensure to prefix all environme
 
 For example:
 
-```
+```text
 REACT_APP_API_URL= // the url of the Claw Ban Bot API repository
 REACT_APP_CLIENT_URL= // the url that this repository runs on i.e http://localhost:3000
 ```
-
 
 ## Available Scripts
 

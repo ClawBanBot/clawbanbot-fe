@@ -14,6 +14,8 @@ export interface AuthenticateWithTwitchResponse {
   sub: string;
 }
 export default class Api {
+  static jwt: string = "";
+
   static apiUrl(): string {
     return process.env.REACT_APP_API_URL || "notConnected";
   }
@@ -43,6 +45,7 @@ export default class Api {
         redirect_uri: this.clientUrl(),
       });
 
+      this.jwt = response.data;
       return response.data;
     } catch (error) {
       throw error;
@@ -51,7 +54,9 @@ export default class Api {
 
   static async getTwitchBanList(): Promise<TwitchBanListResponse | []> {
     try {
-      const response = await axios.get(`${this.apiUrl()}ban_list`);
+      const response = await axios.get(`${this.apiUrl()}ban_list`, {
+        headers: { authorization: this.jwt },
+      });
 
       return response.data;
     } catch (error) {
